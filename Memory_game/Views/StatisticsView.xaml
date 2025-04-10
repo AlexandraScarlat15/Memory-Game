@@ -1,0 +1,82 @@
+﻿<Window x:Class="Memory_game.Views.StatisticsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Statistics" Height="500" Width="600"
+        Background="#3E2723" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- General text styling -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Beige"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+        </Style>
+
+        <!-- Button style for consistency -->
+        <Style x:Key="RusticButton" TargetType="Button">
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Beige"/>
+            <Setter Property="Background" Value="#6D4C41"/>
+            <Setter Property="BorderBrush" Value="#A67842"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="140"/>
+        </Style>
+
+        <!-- DataGrid Style (Leaderboard) -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="#4A3F35"/>
+            <Setter Property="Foreground" Value="Beige"/>
+            <Setter Property="RowBackground" Value="#3B2F25"/>
+            <Setter Property="AlternatingRowBackground" Value="#2F211C"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="BorderBrush" Value="#A67842"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+        </Style>
+
+        <!-- DataGridColumnHeader Style -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#6D4C41"/>
+            <Setter Property="Foreground" Value="Beige"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Margin="20,0,20,0" VerticalAlignment="Center" Height="363">
+        <!-- Your Stats -->
+        <TextBlock Text="📜 Your Stats:" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding CurrentPlayerStats}" FontSize="16" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+        <!-- Leaderboard -->
+        <TextBlock Text="⏳ Leaderboard" FontSize="24" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+        <!-- DataGrid for the leaderboard -->
+        <DataGrid ItemsSource="{Binding Leaderboard}" 
+                  AutoGenerateColumns="False" 
+                  CanUserAddRows="False"
+                  HeadersVisibility="Column"
+                  Margin="0,0,0,20"
+                  ColumnHeaderHeight="45"
+                  HorizontalAlignment="Center" Height="140" SelectionChanged="DataGrid_SelectionChanged">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*" />
+                <DataGridTextColumn Header="Played" Binding="{Binding GamesPlayed}" Width="*" />
+                <DataGridTextColumn Header="Won" Binding="{Binding GamesWon}" Width="*" />
+                <DataGridTextColumn Header="Lost" Binding="{Binding GamesLost}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Back to Menu"
+        Name="BackButton"
+        Style="{StaticResource RusticButton}"
+        HorizontalAlignment="Center"
+        Click="BackButton_Click"/>
+    </StackPanel>
+</Window>
